@@ -7,42 +7,27 @@
     align-items: center;
 }
 
-#logo {
-    flex: 1;
-    height: 2vw;
-    width: 5vw;
-    margin: 0 20px;
-}
-
-#name {
-    flex: 10;
-    justify-content: center;
-    align-items: center;
-}
-
 #main_page {
-    display: flex;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+    gap: 20px;
     justify-content: center;
     margin: 20px;
 }
 
-#memeArea {
-    flex: 5;
+.meme {
     display: flex;
     flex-direction: column;
-    justify-content: center;
     align-items: center;
+    text-align: center;
 }
 
-#sharing {
-    flex: 1;
-}
-
-#main_page button {
-    border-radius: 5px;
-    width: 10vw;
-    padding: auto;
-    margin: 10px;
+.meme img {
+    width: 100%;
+    height: auto;
+    max-width: 250px;
+    max-height: 250px;
+    margin-bottom: 10px;
 }
 
 #footer {

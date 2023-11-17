@@ -1,7 +1,6 @@
 // const { json } = require("stream/consumers");
 
 const displayArea = document.getElementById('main_page');
-let memeLink; // Declare memeLink outside the loop
 
 // Fetch request to get all memes templates when the website is loaded
 fetch('https://api.imgflip.com/get_memes')
@@ -21,31 +20,28 @@ fetch('https://api.imgflip.com/get_memes')
 
             const text0 = document.createElement('input');
             text0.placeholder = "Text 0";
-            text0.style.margin = "5px 0"; // Add margin at the top and bottom
+            text0.style.margin = "5px 0";
 
             const text1 = document.createElement('input');
             text1.placeholder = "Text 1";
-            text1.style.margin = "5px 0"; // Add margin at the top and bottom
+            text1.style.margin = "5px 0";
 
             const createButton = document.createElement('button');
             createButton.textContent = "Create";
             createButton.addEventListener('click', () => createButtonClickHandler(result.data.memes[i].id, text0.value, text1.value));
-
-            memeLink = document.createElement('p');
-            memeLink.textContent = "Your link will appear here";
 
             memeDiv.appendChild(name);
             memeDiv.appendChild(imgElement);
             memeDiv.appendChild(text0);
             memeDiv.appendChild(text1);
             memeDiv.appendChild(createButton);
-            memeDiv.appendChild(memeLink);
 
             displayArea.appendChild(memeDiv);
         }
     })
     .catch(error => console.log("Error: " + error));
 
+// function to make a POST request when "Create" button is clicked
 function createButtonClickHandler(templateId, text0Value, text1Value) {
     const formData = new URLSearchParams();
     formData.append('template_id', templateId);
@@ -64,8 +60,8 @@ function createButtonClickHandler(templateId, text0Value, text1Value) {
         .then(res => res.json())
         .then(result => {
             const responseUrl = result.data.url;
-            memeLink.textContent = responseUrl;
-            console.log("Request successful");
+            console.log(responseUrl);
+            console.log("POST request successful");
         })
         .catch(error => console.log("Error: " + error));
 }
@@ -82,8 +78,8 @@ function createButtonClickHandler(templateId, text0Value, text1Value) {
 //             template_id: templateId,
 //             username: 'Rerem',
 //             password: 'Rdluxe@12069',
-//             text0: "Hello", // topText
-//             text1: "World", // bottomText
+//             text0: "Hello", 
+//             text1: "World",
 //         }),
 //     })
 //     .then(res => res.json())
@@ -94,31 +90,6 @@ function createButtonClickHandler(templateId, text0Value, text1Value) {
 
 //----------------------------------------------------------------------------------------------//
 // -------------------------------------------------------------------------------------------- //
-
-// fetch('https://api.imgflip.com/get_memes')
-//     .then(res => {
-//         if (res.ok) {
-//             console.log("SUCCESS")
-//         } else {
-//             console.log("API request Unsuccessful")
-//         }
-//         res.json()
-//     })
-//     .then(data => {
-//         console.log(data)
-//     })
-//     .catch(error => console.log("Error: " + error))
-
-// const pMemeBtn = document.getElementById("pMeme");
-// const nMemeBtn = document.getElementById("nMeme");
-// const memeImage = document.getElementById("meme");
-// const text0 = document.getElementById("text0");
-// const text1 = document.getElementById("text1");
-// let currentIndex = 0;
-
-//----------------------------------------------------------------------------------------------//
-// -------------------------------------------------------------------------------------------- //
-
 
 // const axios = require('axios');
 
@@ -162,10 +133,12 @@ function createButtonClickHandler(templateId, text0Value, text1Value) {
 //     updateMeme();
 // }
 
+//----------------------------------------------------------------------------------------------//
+// -------------------------------------------------------------------------------------------- //
 
-fetch('https://api.imgflip.com/get_memes')
-    .then(res => res.json())
-    .then(result => {
-        let customURL = result.data.memes.id
-    })
-    .catch(error => console.log("Error: " + error))
+// fetch('https://api.imgflip.com/get_memes')
+//     .then(res => res.json())
+//     .then(result => {
+//         let customURL = result.data.memes.id
+//     })
+//     .catch(error => console.log("Error: " + error))

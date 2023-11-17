@@ -1,8 +1,9 @@
 // const { json } = require("stream/consumers");
 
 const displayArea = document.getElementById('main_page');
+let memeLink; // Declare memeLink outside the loop
 
-// fetch request to get all memes templates when website is loaded
+// Fetch request to get all memes templates when the website is loaded
 fetch('https://api.imgflip.com/get_memes')
     .then(res => res.json())
     .then(result => {
@@ -20,15 +21,18 @@ fetch('https://api.imgflip.com/get_memes')
 
             const text0 = document.createElement('input');
             text0.placeholder = "Text 0";
+            text0.style.margin = "5px 0"; // Add margin at the top and bottom
 
             const text1 = document.createElement('input');
             text1.placeholder = "Text 1";
+            text1.style.margin = "5px 0"; // Add margin at the top and bottom
 
             const createButton = document.createElement('button');
             createButton.textContent = "Create";
+            createButton.addEventListener('click', () => createButtonClickHandler(result.data.memes[i].id, text0.value, text1.value));
 
-            const memeLink = document.createElement('p');
-            memeLink.textContent = "your link will appear here";
+            memeLink = document.createElement('p');
+            memeLink.textContent = "Your link will appear here";
 
             memeDiv.appendChild(name);
             memeDiv.appendChild(imgElement);
@@ -40,16 +44,15 @@ fetch('https://api.imgflip.com/get_memes')
             displayArea.appendChild(memeDiv);
         }
     })
-    .catch(error => console.log("Error: " + error))
+    .catch(error => console.log("Error: " + error));
 
-
-function createButtonClickHandler() {
+function createButtonClickHandler(templateId, text0Value, text1Value) {
     const formData = new URLSearchParams();
-    formData.append('template_id', '181913649');
+    formData.append('template_id', templateId);
     formData.append('username', 'Rerem');
     formData.append('password', 'Rdluxe@12069');
-    formData.append('text0', 'Hello');
-    formData.append('text1', 'World');
+    formData.append('text0', text0Value);
+    formData.append('text1', text1Value);
 
     fetch('https://api.imgflip.com/caption_image', {
             method: 'POST',
@@ -59,7 +62,11 @@ function createButtonClickHandler() {
             body: formData.toString(),
         })
         .then(res => res.json())
-        .then((json) => console.log(json))
+        .then(result => {
+            const responseUrl = result.data.url;
+            memeLink.textContent = responseUrl;
+            console.log("Request successful");
+        })
         .catch(error => console.log("Error: " + error));
 }
 

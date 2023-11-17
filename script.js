@@ -18,12 +18,24 @@ fetch('https://api.imgflip.com/get_memes')
             imgElement.src = result.data.memes[i].url;
             imgElement.alt = 'Meme image';
 
+            const text0 = document.createElement('input');
+            text0.placeholder = "Text 0";
+
+            const text1 = document.createElement('input');
+            text1.placeholder = "Text 1";
+
             const createButton = document.createElement('button');
             createButton.textContent = "Create";
 
+            const memeLink = document.createElement('p');
+            memeLink.textContent = "your link will appear here";
+
             memeDiv.appendChild(name);
             memeDiv.appendChild(imgElement);
+            memeDiv.appendChild(text0);
+            memeDiv.appendChild(text1);
             memeDiv.appendChild(createButton);
+            memeDiv.appendChild(memeLink);
 
             displayArea.appendChild(memeDiv);
         }
@@ -31,25 +43,25 @@ fetch('https://api.imgflip.com/get_memes')
     .catch(error => console.log("Error: " + error))
 
 
-// function createButtonClickHandler() {
-//     fetch('https://api.imgflip.com/caption_image', {
-//             method: 'POST',
-//             headers: {
-//                 'Content-Type': 'application/json'
-//             },
-//             body: JSON.stringify({
-//                 template_id: 181913649,
-//                 username: 'Rerem',
-//                 password: 'Rdluxe@12069',
-//             }),
-//         })
-//         .then(res => res.json())
-//         .then((json) => console.log(json))
-//         .catch(error => console.log("Error: " + error))
-// }
+function createButtonClickHandler() {
+    const formData = new URLSearchParams();
+    formData.append('template_id', '181913649');
+    formData.append('username', 'Rerem');
+    formData.append('password', 'Rdluxe@12069');
+    formData.append('text0', 'Hello');
+    formData.append('text1', 'World');
 
-// const createBtn = document.querySelectorAll('.create-button');
-// createBtn.addEventListener("click", createButtonClickHandler);
+    fetch('https://api.imgflip.com/caption_image', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/x-www-form-urlencoded'
+            },
+            body: formData.toString(),
+        })
+        .then(res => res.json())
+        .then((json) => console.log(json))
+        .catch(error => console.log("Error: " + error));
+}
 
 //----------------------------------------------------------------------------------------------//
 // -------------------------------------------------------------------------------------------- //
@@ -144,8 +156,9 @@ fetch('https://api.imgflip.com/get_memes')
 // }
 
 
-// template_id=181913649&
-// username=Rerem&
-// password=Rdluxe%4012069&
-// text0=Hello&
-// text1=World
+fetch('https://api.imgflip.com/get_memes')
+    .then(res => res.json())
+    .then(result => {
+        let customURL = result.data.memes.id
+    })
+    .catch(error => console.log("Error: " + error))
